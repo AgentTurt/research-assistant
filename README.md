@@ -2,7 +2,7 @@
 
 A production-ready, Coral-compatible research agent for the Coral Protocol ecosystem.
 
-> **Note:** This agent is compatible with both the original Coral Server and [`coral-server-next`](https://github.com/Coral-Protocol/coral-server-next) (the newer Kotlin implementation). See [CORAL_SERVER_NEXT.md](CORAL_SERVER_NEXT.md) for specific configuration details.
+> **Note:** This agent is compatible with [`coral-server-next`](https://github.com/Coral-Protocol/coral-server-next) v1.1-beta (the Kotlin implementation). The API documentation is available at `http://localhost:5555/api_v1.json` when the server is running. See [CORAL_SERVER_NEXT.md](CORAL_SERVER_NEXT.md) for specific configuration details.
 
 ## 🚀 Quick Start
 
@@ -24,13 +24,15 @@ python research_agent.py
 
 ```bash
 # Setup environment
-export CORAL_SSE_URL="http://localhost:5555/devmode/exampleApplication/privkey/session1/sse"
+export CORAL_SSE_URL="http://localhost:5555/sse"
 export CORAL_AGENT_ID="research_assistant"
 export OPENAI_API_KEY="your-key"
 
 # Run with Coral integration
 python research_agent.py
 ```
+
+> **Note:** For coral-server-next v1.1-beta, the API endpoints are available at `http://localhost:5555/api_v1.json`
 
 ### Option 3: Docker
 

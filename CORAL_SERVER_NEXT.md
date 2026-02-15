@@ -1,19 +1,29 @@
-# Research Assistant Agent for coral-server-next
+# Research Assistant Agent for coral-server-next v1.1-beta
 
-This version is specifically compatible with the Kotlin-based `coral-server-next` implementation.
+This version is specifically compatible with the Kotlin-based `coral-server-next` v1.1-beta implementation.
 
-## coral-server-next Compatibility
+## coral-server-next v1.1-beta Compatibility
 
-The `coral-server-next` (https://github.com/Coral-Protocol/coral-server-next) is the newer Kotlin implementation of the Coral Protocol. It provides MCP server tools for agent communication.
+The `coral-server-next` (https://github.com/Coral-Protocol/coral-server-next) is the Kotlin implementation of the Coral Protocol. It provides MCP server tools for agent communication.
 
-### Key Differences from older versions:
+### API Discovery
+
+When coral-server-next is running, the full API specification is available at:
+```
+http://localhost:5555/api_v1.json
+```
+
+This endpoint provides the complete API collection including all available endpoints.
+
+### Key Features:
 
 1. **Docker-based by default** - Agents run as Docker containers
 2. **Registry-based** - Uses `registry.toml` for agent registration
 3. **Thread-based messaging** - All communication happens through threads
 4. **MCP-native** - Built from ground up as an MCP server
+5. **API Documentation** - Auto-generated API spec at `/api_v1.json`
 
-## Configuration for coral-server-next
+## Configuration for coral-server-next v1.1-beta
 
 ### 1. Registry Configuration
 
@@ -36,7 +46,7 @@ OPENAI_API_KEY=your_key
 # For standalone mode (no Coral Server)
 # (leave CORAL_SSE_URL unset)
 
-# For Coral Server integration
+# For Coral Server integration (v1.1-beta)
 CORAL_SSE_URL=http://localhost:5555/sse
 CORAL_AGENT_ID=research_assistant
 CORAL_AGENT_DESCRIPTION="Research assistant agent"
@@ -90,12 +100,17 @@ docker run -p 5555:5555 \
   ghcr.io/coral-protocol/coral-server
 ```
 
-2. Run the agent:
+2. Verify the API is accessible:
+```bash
+curl http://localhost:5555/api_v1.json
+```
+
+3. Run the agent:
 ```bash
 python research_agent.py
 ```
 
-3. The agent will:
+4. The agent will:
    - Connect to the Coral Server SSE endpoint
    - Discover available tools dynamically
    - Register itself (if configured in registry.toml)
@@ -107,18 +122,23 @@ python research_agent.py
 
 If the agent can't connect to coral-server-next:
 
-1. Verify the SSE URL:
+1. Verify the API is accessible:
+```bash
+curl http://localhost:5555/api_v1.json
+```
+
+2. Check the SSE endpoint:
 ```bash
 curl http://localhost:5555/sse
 ```
 
-2. Check Docker networking (if using Docker):
+3. Check Docker networking (if using Docker):
 ```bash
 docker network ls
 docker network inspect <coral-network>
 ```
 
-3. Ensure registry.toml is properly configured
+4. Ensure registry.toml is properly configured
 
 ### Tool Discovery
 
@@ -133,9 +153,10 @@ If tools aren't discovered, the agent will still work in standalone mode.
 
 ```
 ┌─────────────────────────────────────────┐
-│  coral-server-next (Kotlin/MCP)         │
+│  coral-server-next v1.1-beta (Kotlin)   │
 │  - Port 5555                            │
-│  - SSE endpoint                         │
+│  - SSE endpoint: /sse                   │
+│  - API docs: /api_v1.json               │
 │  - Docker orchestration                 │
 └──────────────┬──────────────────────────┘
                │ SSE/MCP

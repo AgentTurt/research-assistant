@@ -246,6 +246,9 @@ def get_tools_description(tools: List[Any]) -> str:
 async def create_coralized_agent():
     """
     Create a Coralized agent that connects to the Coral Server.
+    
+    For coral-server-next v1.1-beta, the API specification is available at:
+    http://localhost:5555/api_v1.json
     """
     
     # Get configuration from environment
