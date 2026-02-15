@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  research-assistant:
+    build: .
+    container_name: coral-research-agent
+    environment:
+      - CORAL_SSE_URL=${CORAL_SSE_URL}
+      - CORAL_AGENT_ID=${CORAL_AGENT_ID:-research_assistant}
+      - CORAL_AGENT_DESCRIPTION=${CORAL_AGENT_DESCRIPTION}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./competitor_tracking.json:/app/competitor_tracking.json
+    restart: unless-stopped
+    networks:
+      - coral-network
+
+networks:
+  coral-network:
+    external: true

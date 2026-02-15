@@ -1,0 +1,32 @@
+{
+  "name": "research-assistant",
+  "version": "1.0.0",
+  "description": "Research assistant agent for Coral Protocol - performs web searches, tracks competitors, and generates reports",
+  "author": "Peter Carroll / CoralOS",
+  "license": "MIT",
+  "coral": {
+    "agentId": "research_assistant",
+    "agentType": "service",
+    "capabilities": [
+      "web_search",
+      "content_extraction",
+      "competitor_tracking",
+      "report_generation",
+      "paper_summarization"
+    ],
+    "category": "research",
+    "pricing": {
+      "model": "per_task",
+      "basePrice": 0.001
+    }
+  },
+  "mcpServers": {
+    "research": {
+      "command": "python",
+      "args": ["research_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "."
+      }
+    }
+  }
+}
